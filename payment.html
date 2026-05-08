@@ -42,19 +42,46 @@
   .payment-details { background: var(--bg2); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; font-family: var(--mono); font-size: 1.1rem; border: 1px dashed var(--muted); }
   .upi-id { color: var(--accent2); font-weight: bold; font-size: 1.3rem; margin: 10px 0; display: block; }
   
+  /* PAYMENT PROOF FORM */
+  .proof-form-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; text-align: left; }
+  .proof-form-box h2 { color: var(--accent); margin-bottom: 1rem; font-family: var(--mono); text-align: center;}
+  .proof-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; text-align: center; }
+  
+  .proof-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .proof-form input { background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 1rem 1.2rem; border-radius: 8px; font-family: var(--mono); font-size: 0.9rem; outline: none; transition: 0.3s; width: 100%;}
+  .proof-form input:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(0,245,160,0.1); }
+  .proof-form input[type="file"] { padding: 0.8rem; background: var(--bg2); cursor: pointer; }
+  
+  .btn-primary { font-family: var(--mono); font-size: .85rem; letter-spacing: .08em; padding: 1rem; background: var(--accent); color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; transition: transform .2s; margin-top: 10px; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,245,160,.2); }
+
   /* DYNAMIC REFUND BOX */
   .dynamic-policy-box { background: rgba(255, 77, 109, 0.05); border: 1px solid rgba(255, 77, 109, 0.3); border-radius: 12px; padding: 2.5rem; position: relative; }
   .dynamic-policy-box::before { content: 'Synced from legal.html'; position: absolute; top: 10px; right: 15px; font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
   
-  /* Loading state */
   #fetched-refund-content { font-size: 0.95rem; color: var(--muted); }
   #fetched-refund-content .section-heading { color: #ff4d6d; font-family: var(--mono); margin-bottom: 1rem; font-size: 1.2rem;}
   #fetched-refund-content ul { margin-left: 1.5rem; margin-bottom: 1rem; }
   #fetched-refund-content .highlight { color: #fff; font-weight: bold; }
 
-  footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); margin-top: 4rem; font-size: 0.9rem; color: var(--muted); }
+  /* FOOTER STYLE (Matched) */
+  footer { text-align: center; padding: 3rem 1rem; background: #0f172a; color: white; font-family: Arial, sans-serif; border-top: 1px solid var(--border); margin-top: 4rem;}
+  .built-with-line { font-weight: bold; }
+  .footer-line { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .legal-links { margin: 20px 0; font-family: var(--mono); font-size: 0.85rem; }
+  .legal-link-item { color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .legal-link-item:hover { color: var(--accent); }
+  .white-text { color: #ffffff; font-weight: bold; }
+  .white-link, .green-link { text-decoration: none; font-weight: bold; display: inline-block; position: relative; transition: transform 0.3s ease; }
+  .white-link { color: white; } .green-link { color: #00f5a0; }
+  .first-heart:hover, .white-link:hover { transform: scale(1.6); opacity: 0.8; margin: 0 15px;}
+  .name-link:hover { transform: scale(1.1); opacity: 0.8; }
 
-  @media (max-width: 768px) { .nav-links { display: none; } }
+  @media (max-width: 768px) { 
+    .nav-links { display: none; } 
+    .form-row { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -86,7 +113,32 @@
       <span style="font-size: 0.85rem; color: var(--muted);">Name: SHIVAM KUMAR SINGH</span>
     </div>
 
-    <p style="font-size: 0.85rem; color: var(--muted);">After payment, please take a screenshot and share it via Email or Contact Form.</p>
+    <p style="font-size: 0.85rem; color: var(--muted);">After sending the payment, please attach the screenshot below.</p>
+  </div>
+
+  <!-- UPLOAD SCREENSHOT FORM -->
+  <div class="proof-form-box">
+    <h2>// Verify Payment</h2>
+    <p class="proof-sub">Submit your transaction details so I can confirm the payment.</p>
+    
+    <!-- WEB3FORMS WITH FILE UPLOAD SUPPORT -->
+    <!-- REPLACE 'YOUR_ACCESS_KEY_HERE' -->
+    <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="proof-form">
+      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+      <input type="hidden" name="subject" value="Payment Screenshot Received!">
+      
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email Address" required>
+      </div>
+      
+      <input type="text" name="transaction_id" placeholder="Transaction ID / UTR Number" required>
+      
+      <label style="font-size: 0.85rem; color: var(--muted); margin-bottom: -10px; font-family: var(--mono);">Upload Screenshot (JPG, PNG)</label>
+      <input type="file" name="attachment" accept="image/png, image/jpeg" required>
+      
+      <button type="submit" class="btn-primary">Submit Details ↗</button>
+    </form>
   </div>
 
   <!-- REFUND POLICY (Dynamically Fetched) -->
@@ -98,8 +150,30 @@
 
 </div>
 
+<!-- FOOTER (MATCHED EXACTLY WITH INDEX.HTML) -->
 <footer>
-  © 2026 SHIVAM KUMAR SINGH. All rights reserved.
+  <p class="built-with-line">
+    Built with 
+    <a href="https://github.com/ve-rshivam" target="_blank" class="green-link first-heart">❤</a> 
+    &amp; lots of 
+    <a href="https://www.instagram.com/ve.rshivam" target="_blank" class="white-link">{ ❤ }</a>
+  </p>
+
+  <p class="legal-links">
+    <a href="legal.html#privacy" class="legal-link-item">Privacy Policy</a>
+    <span style="color: var(--muted); margin: 0 10px;">|</span>
+    <a href="legal.html#terms" class="legal-link-item">Terms &amp; Conditions</a>
+    <span style="color: var(--muted); margin: 0 10px;">|</span>
+    <a href="legal.html#refund" class="legal-link-item">Refund Policy</a>
+    <span style="color: var(--muted); margin: 0 10px;">|</span>
+    <a href="#" class="legal-link-item" style="color: var(--accent);">Make a Payment</a>
+  </p>
+
+  <p class="footer-line">
+    <span class="white-text">© 2026</span>
+    <a href="https://www.linkedin.com/in/ve8rshivam" target="_blank" class="green-link name-link">SHIVAM KUMAR SINGH</a>
+    <span class="white-text">— All rights reserved.</span>
+  </p>
 </footer>
 
 <!-- ── MAGIC JAVASCRIPT: Fetching Refund Policy from legal.html ── -->
