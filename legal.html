@@ -135,7 +135,7 @@
     font-weight: bold;
   }
 
-  /* FOOTER (Same as index.html) */
+  /* FOOTER */
   footer {
     text-align: center;
     padding: 3rem 1rem;
@@ -150,6 +150,23 @@
   .white-text { color: #ffffff; font-weight: bold; }
   .green-link { text-decoration: none; font-weight: bold; display: inline-block; color: #00f5a0; transition: transform 0.3s; }
   .green-link:hover { transform: scale(1.1); }
+  
+  /* ADDED CSS FOR PAYMENT LINK */
+  .legal-links {
+    margin: 20px 0 30px 0;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+  }
+  .legal-link-item {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+    display: inline-block;
+  }
+  .legal-link-item:hover { 
+    color: #fff;
+    transform: translateY(-2px);
+  }
 </style>
 </head>
 <body>
@@ -202,6 +219,11 @@
 
 <!-- FOOTER -->
 <footer>
+  <!-- ADDED PAYMENT LINK HERE -->
+  <p class="legal-links">
+    <a href="payment.html" class="legal-link-item">Make a Payment ↗</a>
+  </p>
+
   <p class="footer-line">
     <span class="white-text">© 2026</span>
     <a href="index.html" class="green-link">SHIVAM KUMAR SINGH</a>
