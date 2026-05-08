@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- ── META & TITLE ── -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Portfolio | SHIVAM KUMAR SINGH</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+<!-- ── CSS STYLES SECTION ── -->
 <style>
   :root {
     --bg: #050508;
@@ -31,7 +34,7 @@
     overflow-x: hidden;
   }
 
-  /* ── NOISE OVERLAY ── */
+  /* ── NOISE OVERLAY STYLE ── */
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -39,12 +42,12 @@
     pointer-events: none; z-index: 9999; opacity: .4;
   }
 
-  /* ── SCROLLBAR ── */
+  /* ── SCROLLBAR STYLE ── */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
-  /* ── NAV ── */
+  /* ── NAV BAR STYLE ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
@@ -71,7 +74,7 @@
   }
   .nav-links a:hover { color: var(--accent); }
 
-  /* ── HERO ── */
+  /* ── HERO SECTION STYLE ── */
   #hero {
     min-height: 100vh;
     display: flex; align-items: center;
@@ -196,7 +199,7 @@
     animation: scrollPulse 2s ease-in-out infinite;
   }
 
-  /* ── SECTION COMMON ── */
+  /* ── SECTION COMMON STYLE ── */
   section { padding: 7rem 6vw; }
 
   .section-label {
@@ -222,7 +225,7 @@
     line-height: 1.1;
   }
 
-  /* ── ABOUT ── */
+  /* ── ABOUT SECTION STYLE ── */
   #about { background: var(--bg2); }
 
   .about-grid {
@@ -278,7 +281,7 @@
     vertical-align: middle;
   }
 
-  /* ── SKILLS ── */
+  /* ── SKILLS SECTION STYLE ── */
   #skills { background: var(--bg); }
 
   .skills-grid {
@@ -328,7 +331,7 @@
   }
   .skill-card:hover .skill-bar { transform: scaleX(1); }
 
-  /* ── PROJECTS ── */
+  /* ── PROJECTS SECTION STYLE ── */
   #projects { background: var(--bg2); }
 
   .projects-grid {
@@ -405,7 +408,7 @@
     text-decoration: underline;
   }
 
-  /* ── CONTACT & FORM (UPDATED) ── */
+  /* ── CONTACT & FORM STYLE ── */
   #contact { background: var(--bg); }
 
   .contact-wrap {
@@ -569,7 +572,7 @@
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- ── NAVIGATION BAR SECTION: Top sticky menu with logo and links ── -->
 <nav>
   <div class="nav-logo"><span>~/</span>portfolio</div>
   <ul class="nav-links">
@@ -581,7 +584,7 @@
   </ul>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- ── HERO SECTION: Landing area with profile image, name, and short intro ── -->
 <section id="hero">
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
@@ -609,7 +612,7 @@
   </div>
 </section>
 
-<!-- ── ABOUT ── -->
+<!-- ── ABOUT SECTION: Detailed personal description, community affiliations, and terminal UI ── -->
 <section id="about">
   <div class="reveal">
     <div class="section-label">01 — about me</div>
@@ -620,6 +623,9 @@
       <p>Hi! I'm a <strong>SHIVAM KUMAR</strong> on a journey to master the art of programming. I'm currently focused on building strong fundamentals in <strong>Data Structures & Algorithms</strong> using C++ and Python.</p>
       <p>I love breaking down complex problems into elegant solutions. Whether it's optimizing a graph traversal or implementing a clean sorting algorithm, I enjoy the challenge.</p>
       <p>Currently exploring: <strong>Dynamic Programming</strong>, <strong>Binary Trees</strong>, and competitive programming on LeetCode & Codeforces.</p>
+      
+      <!-- ADDED MEMBERSHIP INFORMATION HERE -->
+      <p>I am also a proud member of the <strong>GitHub Developer Program</strong> and a <strong>Google Developer Club</strong> member, actively engaging with developer communities and exploring new technologies.</p>
       
       <!-- Terminal UI -->
       <div class="about-terminal">
@@ -659,7 +665,7 @@
   </div>
 </section>
 
-<!-- ── SKILLS ── -->
+<!-- ── SKILLS SECTION: Displays technical languages, tools, and visual progress bars ── -->
 <section id="skills">
   <div class="reveal">
     <div class="section-label">02 — skills</div>
@@ -717,7 +723,7 @@
   </div>
 </section>
 
-<!-- ── PROJECTS ── -->
+<!-- ── PROJECTS SECTION: Showcases recent projects with titles, descriptions, and links ── -->
 <section id="projects">
   <div class="reveal">
     <div class="section-label">03 — projects</div>
@@ -768,7 +774,7 @@
   </div>
 </section>
 
-<!-- ── CONTACT & DIRECT EMAIL FORM ── -->
+<!-- ── CONTACT SECTION: Includes social links and direct email contact form ── -->
 <section id="contact">
   <div class="contact-wrap reveal">
     <div class="section-label">04 — contact</div>
@@ -803,7 +809,7 @@
   </div> <!-- Error Fixed: Missing Closing Div Added -->
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- ── FOOTER SECTION: Copyright, credits, and legal/payment links ── -->
 <footer>
   <p class="built-with-line">
     Built with 
@@ -830,6 +836,7 @@
   </p>
 </footer>
 
+<!-- ── SCRIPTS SECTION: Contains logic for scroll animations and interactions ── -->
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
