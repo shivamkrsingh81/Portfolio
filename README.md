@@ -73,7 +73,7 @@ in your browser.
 # 📸 Preview
 
 
-![Portfolio Preview](assets/screenshot.png)
+![Portfolio Preview](assets/screenshot.png )
 
 # 👨‍💻 Author
 
