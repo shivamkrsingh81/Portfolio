@@ -86,9 +86,10 @@ https://github.com/ve-rshivam
 
 # 📜 License
 
-Licensed under the Apache License 2.0.
+This project is proprietary software.
 
----
+Viewing is permitted for personal purposes only.
+Modification, redistribution, or commercial use is prohibited without permission.
 
 # ⭐ Support
 
