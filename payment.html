@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- ── META & TITLE ── -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Payment Portal | SHIVAM KUMAR SINGH</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+<!-- ── CSS STYLES SECTION ── -->
 <style>
+  /* ── GLOBAL VARIABLES ── */
   :root {
     --bg: #050508; --bg2: #0d0d14; --bg3: #12121c;
     --accent: #00f5a0; --accent2: #00b8ff;
@@ -13,16 +17,19 @@
     --border: rgba(0,245,160,0.12);
     --mono: 'JetBrains Mono', monospace; --sans: 'Syne', sans-serif;
   }
+
+  /* ── BASIC RESET ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.8; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.8; overflow-x: hidden; }
   
+  /* ── NOISE OVERLAY STYLE ── */
   body::before {
     content: ''; position: fixed; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
     pointer-events: none; z-index: 9999; opacity: .4;
   }
 
-  /* NAV (Matched Exactly with index.html) */
+  /* ── NAVIGATION BAR STYLE (Same as index.html) ── */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 6vw; background: rgba(5,5,8,0.85); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
   .nav-logo { font-family: var(--mono); font-size: .95rem; color: var(--accent); text-decoration: none; letter-spacing: .05em;}
   .nav-logo span { color: var(--muted); }
@@ -30,19 +37,19 @@
   .nav-links a { font-family: var(--mono); font-size: .8rem; color: var(--muted); text-decoration: none; letter-spacing: .08em; transition: color .2s; }
   .nav-links a:hover { color: var(--accent); }
 
-  /* CONTAINER */
+  /* ── MAIN CONTAINER STYLE ── */
   .container { max-width: 900px; margin: 120px auto 80px auto; padding: 0 6vw; display: grid; gap: 3rem; }
-  
   .page-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; text-align: center; }
   .page-title span { color: transparent; -webkit-text-stroke: 1px var(--accent); }
 
-  /* PAYMENT BOX */
+  /* ── PAYMENT BOX STYLE ── */
   .payment-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; text-align: center; }
   .payment-box h2 { color: var(--accent); margin-bottom: 1rem; font-family: var(--mono); }
   .payment-details { background: var(--bg2); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; font-family: var(--mono); font-size: 1.1rem; border: 1px dashed var(--muted); }
   .upi-id { color: var(--accent2); font-weight: bold; font-size: 1.3rem; margin: 10px 0; display: block; }
+  .qr-code-img { width: 200px; height: 200px; border-radius: 10px; border: 2px solid var(--accent); margin: 15px auto; object-fit: cover; display: block; }
   
-  /* PAYMENT PROOF FORM */
+  /* ── PAYMENT PROOF FORM STYLE ── */
   .proof-form-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; text-align: left; }
   .proof-form-box h2 { color: var(--accent); margin-bottom: 1rem; font-family: var(--mono); text-align: center;}
   .proof-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; text-align: center; }
@@ -53,31 +60,61 @@
   .proof-form input:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(0,245,160,0.1); }
   .proof-form input[type="file"] { padding: 0.8rem; background: var(--bg2); cursor: pointer; }
   
-  .btn-primary { font-family: var(--mono); font-size: .85rem; letter-spacing: .08em; padding: 1rem; background: var(--accent); color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; transition: transform .2s; margin-top: 10px; }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,245,160,.2); }
+  .btn-primary { font-family: var(--mono); font-size: .85rem; letter-spacing: .08em; padding: 1rem; background: var(--accent); color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; transition: transform .2s, box-shadow .2s; margin-top: 10px; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,245,160,.25); }
 
-  /* DYNAMIC REFUND BOX */
+  /* ── DYNAMIC REFUND POLICY BOX STYLE ── */
   .dynamic-policy-box { background: rgba(255, 77, 109, 0.05); border: 1px solid rgba(255, 77, 109, 0.3); border-radius: 12px; padding: 2.5rem; position: relative; }
   .dynamic-policy-box::before { content: 'Synced from legal.html'; position: absolute; top: 10px; right: 15px; font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
-  
   #fetched-refund-content { font-size: 0.95rem; color: var(--muted); }
   #fetched-refund-content .section-heading { color: #ff4d6d; font-family: var(--mono); margin-bottom: 1rem; font-size: 1.2rem;}
   #fetched-refund-content ul { margin-left: 1.5rem; margin-bottom: 1rem; }
   #fetched-refund-content .highlight { color: #fff; font-weight: bold; }
 
-  /* FOOTER STYLE (Matched) */
-  footer { text-align: center; padding: 3rem 1rem; background: #0f172a; color: white; font-family: Arial, sans-serif; border-top: 1px solid var(--border); margin-top: 4rem;}
+  /* ── FOOTER STYLE (Matched Exactly with index.html) ── */
+  footer {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #0f172a;
+    color: white; 
+    font-family: Arial, sans-serif;
+  }
   .built-with-line { font-weight: bold; }
-  .footer-line { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-  .legal-links { margin: 20px 0; font-family: var(--mono); font-size: 0.85rem; }
-  .legal-link-item { color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .footer-line {
+    display: flex; justify-content: center; align-items: center;
+    gap: 8px; flex-wrap: wrap; margin-top: 10px;
+  }
+  .legal-links {
+    margin: 20px 0;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+  }
+  .legal-link-item {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
   .legal-link-item:hover { color: var(--accent); }
   .white-text { color: #ffffff; font-weight: bold; }
-  .white-link, .green-link { text-decoration: none; font-weight: bold; display: inline-block; position: relative; transition: transform 0.3s ease; }
-  .white-link { color: white; } .green-link { color: #00f5a0; }
-  .first-heart:hover, .white-link:hover { transform: scale(1.6); opacity: 0.8; margin: 0 15px;}
-  .name-link:hover { transform: scale(1.1); opacity: 0.8; }
+  .white-link, .green-link {
+    text-decoration: none; font-weight: bold; display: inline-block;
+    position: relative; transition: transform 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+  }
+  .white-link::after, .green-link::after {
+    content: ''; position: absolute; top: -20px; bottom: -20px; left: -30px; right: -30px;
+  }
+  .white-link { color: white; }
+  .green-link { color: #00f5a0; }
+  
+  /* Footer Animations */
+  .first-heart:hover, .white-link:hover {
+    transform: scale(1.6); margin-left: 22px; margin-right: 22px; opacity: 0.8;
+  }
+  .name-link:hover {
+    transform: scale(1.3); margin-left: 45px; margin-right: 45px; opacity: 0.8;
+  }
 
+  /* ── MOBILE RESPONSIVENESS ── */
   @media (max-width: 768px) { 
     .nav-links { display: none; } 
     .form-row { grid-template-columns: 1fr; }
@@ -86,7 +123,7 @@
 </head>
 <body>
 
-<!-- EXACT MATCH NAV BAR -->
+<!-- ── NAVIGATION BAR SECTION ── -->
 <nav>
   <a href="index.html" class="nav-logo"><span>~/</span>portfolio</a>
   <ul class="nav-links">
@@ -94,35 +131,103 @@
     <li><a href="index.html#skills">skills</a></li>
     <li><a href="index.html#projects">projects</a></li>
     <li><a href="index.html#contact">contact</a></li>
-    <li><a href="#" style="color: var(--accent);">payment</a></li>
+    <li><a href="payment.html" style="color: var(--accent);">payment</a></li>
   </ul>
 </nav>
 
+<!-- ── MAIN CONTENT CONTAINER ── -->
 <div class="container">
   <h1 class="page-title">Secure <span>Payment</span></h1>
 
-  <!-- PAYMENT DETAILS -->
+  <!-- ── PAYMENT DETAILS SECTION (QR/UPI, RAZORPAY, PAYPAL) ── -->
   <div class="payment-box">
     <h2>// Transfer Details</h2>
-    <p>Please send the discussed advance payment to confirm your slot.</p>
+    <p>Please use the method below to send the advance payment and confirm your slot.</p>
     
-    <div class="payment-details">
-      <span>UPI / GPay / PhonePe:</span>
-      <span class="upi-id">paytmqr6ex9gc@ptys</span> <!-- APNI UPI ID YAHAN DAALEIN -->
-      <br>
-      <span style="font-size: 0.85rem; color: var(--muted);">Name: SHIVAM KUMAR</span>
+    <!-- CURRENT ACTIVE METHOD: QR CODE & UPI -->
+    <!-- In future, when adding Razorpay, you can comment this block out or remove it -->
+    <div class="payment-method-active" id="upi-section">
+      <div class="payment-details">
+        <span>Scan QR Code or Pay via UPI:</span>
+        
+        <!-- Apne QR code image ka link/path 'src' me daalein -->
+        <img src="qr_code.png" alt="Payment QR Code" class="qr-code-img">
+        
+        <span class="upi-id">paytmqr6ex9gc@ptys</span> <!-- APNI UPI ID YAHAN DAALEIN -->
+        <span style="font-size: 0.85rem; color: var(--muted);">Name: SHIVAM KUMAR</span>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--muted);">After sending the payment, please attach the screenshot below.</p>
     </div>
 
-    <p style="font-size: 0.85rem; color: var(--muted);">After sending the payment, please attach the screenshot below.</p>
+    <!-- ───────────────────────────────────────────────────────── -->
+    <!-- FUTURE INTEGRATION: RAZORPAY (Uncomment to use in future) -->
+    <!-- ───────────────────────────────────────────────────────── -->
+    <!--
+    <div class="payment-method-future" id="razorpay-section" style="margin-top: 2rem;">
+      <h3 style="color: var(--text); font-family: var(--mono); margin-bottom: 1rem;">Pay via Razorpay</h3>
+      <button id="rzp-button1" class="btn-primary" style="background: var(--accent2);">Pay with Razorpay ↗</button>
+      
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      <script>
+        // // Yahan apna Razorpay API key, Amount, aur details update karein
+        // var options = {
+        //   "key": "YOUR_RAZORPAY_KEY_ID", 
+        //   "amount": "50000", // Amount in paise (50000 paise = 500 INR)
+        //   "currency": "INR",
+        //   "name": "SHIVAM KUMAR SINGH",
+        //   "description": "Advance Payment",
+        //   "handler": function (response){
+        //       alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+        //       // Yahan success ke baad screenshot form hide ya auto-fill karne ka logic likh sakte hain
+        //   },
+        //   "prefill": { "name": "Client Name", "email": "client@example.com" },
+        //   "theme": { "color": "#00f5a0" }
+        // };
+        // var rzp1 = new Razorpay(options);
+        // document.getElementById('rzp-button1').onclick = function(e){
+        //   rzp1.open();
+        //   e.preventDefault();
+        // }
+      </script>
+    </div>
+    -->
+
+    <!-- ─────────────────────────────────────────────────────── -->
+    <!-- FUTURE INTEGRATION: PAYPAL (Uncomment to use in future) -->
+    <!-- ─────────────────────────────────────────────────────── -->
+    <!--
+    <div class="payment-method-future" id="paypal-section" style="margin-top: 2rem; background: var(--bg2); padding: 1.5rem; border-radius: 8px; border: 1px dashed var(--muted);">
+      <h3 style="color: var(--text); font-family: var(--mono); margin-bottom: 1rem;">Pay via PayPal</h3>
+      
+      <div id="paypal-button-container" style="max-width: 400px; margin: 0 auto;"></div>
+      
+      <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+      <script>
+        // // Yahan PayPal amount details update karein
+        // paypal.Buttons({
+        //   createOrder: function(data, actions) {
+        //     return actions.order.create({
+        //       purchase_units: [{ amount: { value: '10.00' } }] // Set Amount here
+        //     });
+        //   },
+        //   onApprove: function(data, actions) {
+        //     return actions.order.capture().then(function(details) {
+        //       alert('Transaction completed by ' + details.payer.name.given_name);
+        //     });
+        //   }
+        // }).render('#paypal-button-container');
+      </script>
+    </div>
+    -->
+
   </div>
 
-  <!-- UPLOAD SCREENSHOT FORM -->
+  <!-- ── UPLOAD SCREENSHOT / VERIFICATION FORM SECTION ── -->
   <div class="proof-form-box">
     <h2>// Verify Payment</h2>
     <p class="proof-sub">Submit your transaction details so I can confirm the payment.</p>
     
-    <!-- WEB3FORMS WITH FILE UPLOAD SUPPORT -->
-    <!-- REPLACE 'YOUR_ACCESS_KEY_HERE' -->
+    <!-- WEB3FORMS: Make sure to keep your access key secure -->
     <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="proof-form">
       <input type="hidden" name="access_key" value="6a9105a0-c283-4afa-8a6a-b666130ab9c5">
       <input type="hidden" name="subject" value="Payment Screenshot Received!">
@@ -141,7 +246,7 @@
     </form>
   </div>
 
-  <!-- REFUND POLICY (Dynamically Fetched) -->
+  <!-- ── DYNAMIC REFUND POLICY SECTION ── -->
   <div class="dynamic-policy-box">
     <div id="fetched-refund-content">
       <p style="text-align: center;">Loading Refund Policy...</p>
@@ -150,81 +255,34 @@
 
 </div>
 
-<!-- FOOTER (MATCHED EXACTLY WITH INDEX.HTML) -->
+<!-- ── FOOTER SECTION (Matches index.html exactly) ── -->
 <footer>
-  <!-- ── FOOTER FOR LEGAL & PAYMENT (With Redirect) ── -->
-<style>
-  .main-footer {
-    text-align: center;
-    padding: 4rem 6vw 3rem 6vw;
-    background: #0f172a; 
-    border-top: 1px solid rgba(0, 245, 160, 0.12); 
-    margin-top: 5rem;
-    font-family: 'Syne', sans-serif;
-    position: relative;
-    z-index: 10;
-  }
-  .main-footer .built-with { font-weight: bold; font-size: 0.9rem; margin-bottom: 15px; color: #e8e8f0; }
-  .main-footer .footer-nav { margin: 25px 0; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; letter-spacing: 0.05em; }
-  .main-footer .footer-link { color: #6b6b85; text-decoration: none; transition: all 0.3s ease; display: inline-block; }
-  .main-footer .footer-link:hover { color: #00f5a0; transform: translateY(-2px); }
-  .main-footer .pay-link { color: #00b8ff; font-weight: 700; }
-  .main-footer .sep { color: #6b6b85; margin: 0 12px; opacity: 0.3; }
-  .main-footer .copyright-bar { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 20px; font-size: 0.85rem; color: #ffffff; }
-
-  /* ── SUBTLE NAME ANIMATION (NO GLOW, REDUCED ZOOM) ── */
-  .main-footer .name-link {
-    text-decoration: none;
-    font-weight: 800;
-    display: inline-block;
-    color: #00f5a0;
-    /* 0.2px zoom equivalent reduction - very subtle scale */
-    transition: all 0.3s ease;
-  }
-  .main-footer .name-link:hover {
-    transform: scale(1.03) translateY(-2px); /* Very low zoom */
-    color: #00f5a0;
-    text-shadow: none; /* Glow removed */
-  }
-
-  .main-footer .heart-link { text-decoration: none; display: inline-block; transition: all 0.3s ease; }
-  .main-footer .heart-link:hover { transform: scale(1.3); opacity: 0.8; margin: 0 10px; }
-  .main-footer .green-text { color: #00f5a0; }
-  .main-footer .white-text { color: #ffffff; }
-
-  @media (max-width: 768px) {
-    .main-footer { padding: 3rem 6vw; }
-    .main-footer .footer-nav { display: flex; flex-direction: column; gap: 15px; }
-    .main-footer .sep { display: none; }
-  }
-</style>
-
-<footer class="main-footer">
-  <p class="built-with">
+  <p class="built-with-line">
     Built with 
-    <a href="https://github.com/ve-rshivam" target="_blank" class="heart-link green-text">❤</a> 
+    <a href="https://github.com/ve-rshivam" target="_blank" class="green-link first-heart">❤</a> 
     &amp; lots of 
-    <a href="https://www.instagram.com/ve.rshivam" target="_blank" class="heart-link white-text">{ ❤ }</a>
-  </p>
-  <p class="footer-nav">
-    <a href="legal.html#privacy" class="footer-link">Privacy Policy</a>
-    <span class="sep">|</span>
-    <a href="legal.html#terms" class="footer-link">Terms &amp; Conditions</a>
-    <span class="sep">|</span>
-    <a href="legal.html#refund" class="footer-link">Refund Policy</a>
-    <span class="sep">|</span>
-    <a href="payment.html" class="footer-link pay-link">Payment</a>
-  </p>
-  <p class="copyright-bar">
-    <span style="font-weight: 600; opacity: 0.7;">© 2026</span>
-    <!-- Link changed to index.html -->
-    <a href="index.html" class="name-link">SHIVAM KUMAR SINGH</a>
-    <span style="opacity: 0.7;">— All rights reserved.</span>
+    <a href="https://www.instagram.com/ve.rshivam" target="_blank" class="white-link">{ ❤ }</a>
   </p>
 
+  <p class="legal-links">
+    <a href="legal.html#privacy" class="legal-link-item">Privacy Policy</a>
+    <span style="color: var(--muted); margin: 0 10px;">|</span>
+    <a href="legal.html#terms" class="legal-link-item">Terms &amp; Conditions</a>
+    <span style="color: var(--muted); margin: 0 10px;">|</span>
+    <a href="legal.html#refund" class="legal-link-item">Refund Policy</a>
+    <span style="color: var(--muted); margin: 0 10px;">|</span>
+    <a href="payment.html" class="legal-link-item" style="color: var(--accent);">Payment</a>
+  </p>
+
+  <!-- Name link modified to redirect to index.html -->
+  <p class="footer-line">
+    <span class="white-text">© 2026</span>
+    <a href="index.html" class="green-link name-link">SHIVAM KUMAR SINGH</a>
+    <span class="white-text">— All rights reserved.</span>
+  </p>
 </footer>
 
-<!-- ── MAGIC JAVASCRIPT: Fetching Refund Policy from legal.html ── -->
+<!-- ── JAVASCRIPT: Fetching Refund Policy from legal.html ── -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     fetch('legal.html')
@@ -232,6 +290,7 @@
       .then(htmlData => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlData, 'text/html');
+        // Fetch specific #refund section from legal.html
         const refundSection = doc.querySelector('#refund');
         
         if (refundSection) {
