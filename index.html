@@ -329,57 +329,157 @@
   .skill-card:hover .skill-bar { transform: scaleX(1); }
 
   /* ── PROJECTS ── */
-  #projects { background: var(--bg2); }
+  <!-- ================= PROJECTS SECTION ================= -->
 
-  .projects-grid {
+<style>
+/* ================= PROJECTS ================= */
+
+#projects {
+    background: #0f172a;
+    padding: 6rem 2rem;
+    color: white;
+}
+
+.projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 1.5rem;
-  }
+}
 
-  .project-card {
-    background: var(--bg3);
-    border: 1px solid var(--border);
+.project-card {
+    background: #111827;
+    border: 1px solid #1f2937;
     border-radius: 12px;
     padding: 2rem;
-    transition: border-color .3s, transform .3s, box-shadow .3s;
-    position: relative; overflow: hidden;
-  }
-  .project-card::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at var(--mx,50%) var(--my,50%),
-      rgba(0,245,160,.05) 0%, transparent 60%);
-    pointer-events: none;
-    opacity: 0; transition: opacity .3s;
-  }
-  .project-card:hover { border-color: rgba(0,245,160,.25); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,.4); }
-  .project-card:hover::after { opacity: 1; }
+    transition: 0.3s;
+}
 
-  .project-num {
-    font-family: var(--mono); font-size: .72rem;
-    color: var(--accent); letter-spacing: .1em;
-    margin-bottom: 1rem; opacity: .6;
-  }
-  .project-title {
-    font-size: 1.15rem; font-weight: 700;
-    margin-bottom: .8rem; letter-spacing: -.01em;
-  }
-  .project-desc {
-    font-size: .85rem; color: var(--muted);
-    line-height: 1.7; margin-bottom: 1.5rem;
-  }
-  .project-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
-  .tag {
-    font-family: var(--mono); font-size: .7rem;
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: #00f5a0;
+    box-shadow: 0 20px 40px rgba(0,0,0,.4);
+}
+
+.project-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.project-num {
+    font-size: 0.8rem;
+    color: #00f5a0;
+    margin-bottom: 1rem;
+}
+
+.project-title {
+    font-size: 1.2rem;
+    margin-bottom: .8rem;
+}
+
+.project-desc {
+    font-size: .9rem;
+    color: #9ca3af;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: 1rem;
+}
+
+.tag {
     padding: .3rem .7rem;
-    border: 1px solid var(--border);
-    border-radius: 3px; color: var(--muted);
-    letter-spacing: .05em;
-  }
-  .tag.cpp { border-color: rgba(0,184,255,.25); color: var(--accent2); }
-  .tag.py { border-color: rgba(0,245,160,.25); color: var(--accent); }
-  .tag.dsa { border-color: rgba(255,77,109,.25); color: var(--accent3); }
+    border: 1px solid #374151;
+    border-radius: 5px;
+    font-size: .7rem;
+    color: #d1d5db;
+}
+
+.project-card a {
+    text-decoration: none;
+    color: #00f5a0;
+    font-weight: bold;
+}
+</style>
+
+
+<section id="projects">
+
+    <div class="projects-grid">
+
+        <!-- PROJECT 1 -->
+        <div class="project-card">
+            <div class="project-num">01</div>
+
+            <h3 class="project-title">Portfolio Website</h3>
+
+            <p class="project-desc">
+                Developed a responsive portfolio website using HTML, CSS, and JavaScript with modern UI design.
+            </p>
+
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+
+            <a href="https://github.com/ve-rshivam/portfolio" target="_blank">
+                View Project
+            </a>
+        </div>
+
+
+        <!-- PROJECT 2 -->
+        <div class="project-card">
+            <div class="project-num">02</div>
+
+            <h3 class="project-title">DSA Practice</h3>
+
+            <p class="project-desc">
+                Solved Data Structures and Algorithms problems using C++ focusing on logic building and optimization.
+            </p>
+
+            <div class="project-tags">
+                <span class="tag">C++</span>
+                <span class="tag">DSA</span>
+            </div>
+
+            <a href="https://github.com/ve-rshivam/dsa" target="_blank">
+                View Project
+            </a>
+        </div>
+
+
+        <!-- PROJECT 3 -->
+        <div class="project-card">
+            <img src="images/calculator.png" alt="Scientific Calculator">
+
+            <div class="project-num">03</div>
+
+            <h3 class="project-title">Scientific Calculator</h3>
+
+            <p class="project-desc">
+                Built a Scientific Calculator using Python and Tkinter featuring arithmetic operations, square root, and power functions through an interactive GUI interface.
+            </p>
+
+            <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Tkinter</span>
+                <span class="tag">GUI</span>
+            </div>
+
+            <a href="https://github.com/ve-rshivam/Scientific-Calculator" target="_blank">
+                View Project
+            </a>
+        </div>
+
+    </div>
+
+</section>
 
   /* ── CONTACT ── */
   #contact { background: var(--bg); }
