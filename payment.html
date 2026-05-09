@@ -29,7 +29,7 @@
     pointer-events: none; z-index: 9999; opacity: .4;
   }
 
-  /* ── NAVIGATION BAR STYLE (Same as index.html) ── */
+  /* ── NAVIGATION BAR STYLE ── */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 6vw; background: rgba(5,5,8,0.85); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
   .nav-logo { font-family: var(--mono); font-size: .95rem; color: var(--accent); text-decoration: none; letter-spacing: .05em;}
   .nav-logo span { color: var(--muted); }
@@ -42,36 +42,71 @@
   .page-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; text-align: center; }
   .page-title span { color: transparent; -webkit-text-stroke: 1px var(--accent); }
 
-  /* ── PAYMENT BOX STYLE ── */
-  .payment-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; text-align: center; }
-  .payment-box h2 { color: var(--accent); margin-bottom: 1rem; font-family: var(--mono); }
+  /* ── CARD STYLES (Transfer Details, Verify Payment, Refund) ── */
+  .payment-box, .proof-form-box, .dynamic-policy-box { 
+    background: var(--bg3); 
+    border: 1px solid var(--border); 
+    border-radius: 12px; 
+    padding: 2.5rem; 
+  }
+  
+  .payment-box { text-align: center; }
+  .proof-form-box { text-align: left; }
+  
+  .payment-box h2, .proof-form-box h2 { color: var(--accent); margin-bottom: 1rem; font-family: var(--mono); }
+  .proof-form-box h2 { text-align: center; }
+
+  /* ── MOUSE TRACKING GLOW EFFECT (Just like Index.html Projects) ── */
+  .payment-box, .proof-form-box, .dynamic-policy-box {
+    position: relative; 
+    overflow: hidden;
+    transition: 0.3s border-color, 0.3s transform, 0.3s box-shadow;
+  }
+  .payment-box::after, .proof-form-box::after, .dynamic-policy-box::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(0,245,160,.08) 0%, transparent 60%);
+    pointer-events: none;
+    opacity: 0; transition: opacity .3s;
+    z-index: 0;
+  }
+  .payment-box:hover, .proof-form-box:hover, .dynamic-policy-box:hover {
+    border-color: var(--accent); 
+    transform: translateY(-5px); 
+    box-shadow: 0 20px 40px rgba(0,0,0,.4); 
+  }
+  .payment-box:hover::after, .proof-form-box:hover::after, .dynamic-policy-box:hover::after { 
+    opacity: 1; 
+  }
+  
+  /* Ensure content stays above the glow */
+  .payment-box *, .proof-form-box *, .dynamic-policy-box * { position: relative; z-index: 1; }
+
+  /* ── PAYMENT SPECIFIC STYLES ── */
   .payment-details { background: var(--bg2); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; font-family: var(--mono); font-size: 1.1rem; border: 1px dashed var(--muted); }
   .upi-id { color: var(--accent2); font-weight: bold; font-size: 1.3rem; margin: 10px 0; display: block; }
   .qr-code-img { width: 200px; height: 200px; border-radius: 10px; border: 2px solid var(--accent); margin: 15px auto; object-fit: cover; display: block; }
   
-  /* ── PAYMENT PROOF FORM STYLE ── */
-  .proof-form-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; text-align: left; }
-  .proof-form-box h2 { color: var(--accent); margin-bottom: 1rem; font-family: var(--mono); text-align: center;}
+  /* ── FORM SPECIFIC STYLES ── */
   .proof-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; text-align: center; }
-  
   .proof-form { display: flex; flex-direction: column; gap: 1.2rem; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
   .proof-form input { background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 1rem 1.2rem; border-radius: 8px; font-family: var(--mono); font-size: 0.9rem; outline: none; transition: 0.3s; width: 100%;}
   .proof-form input:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(0,245,160,0.1); }
   .proof-form input[type="file"] { padding: 0.8rem; background: var(--bg2); cursor: pointer; }
   
-  .btn-primary { font-family: var(--mono); font-size: .85rem; letter-spacing: .08em; padding: 1rem; background: var(--accent); color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; transition: transform .2s, box-shadow .2s; margin-top: 10px; }
+  .btn-primary { font-family: var(--mono); font-size: .85rem; letter-spacing: .08em; padding: 1rem; background: var(--accent); color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; transition: transform .2s, box-shadow .2s; margin-top: 10px; text-align: center; }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,245,160,.25); }
 
   /* ── DYNAMIC REFUND POLICY BOX STYLE ── */
-  .dynamic-policy-box { background: rgba(255, 77, 109, 0.05); border: 1px solid rgba(255, 77, 109, 0.3); border-radius: 12px; padding: 2.5rem; position: relative; }
-  .dynamic-policy-box::before { content: 'Synced from legal.html'; position: absolute; top: 10px; right: 15px; font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+  .dynamic-policy-box { background: rgba(255, 77, 109, 0.05); border: 1px solid rgba(255, 77, 109, 0.3); }
+  .dynamic-policy-box::before { content: 'Synced from legal.html'; position: absolute; top: 10px; right: 15px; font-family: var(--mono); font-size: 0.65rem; color: var(--muted); z-index: 2;}
   #fetched-refund-content { font-size: 0.95rem; color: var(--muted); }
   #fetched-refund-content .section-heading { color: #ff4d6d; font-family: var(--mono); margin-bottom: 1rem; font-size: 1.2rem;}
   #fetched-refund-content ul { margin-left: 1.5rem; margin-bottom: 1rem; }
   #fetched-refund-content .highlight { color: #fff; font-weight: bold; }
 
-  /* ── FOOTER STYLE (Matched Exactly with index.html) ── */
+  /* ── FOOTER STYLE ── */
   footer {
     text-align: center;
     padding: 3rem 1rem;
@@ -80,39 +115,17 @@
     font-family: Arial, sans-serif;
   }
   .built-with-line { font-weight: bold; }
-  .footer-line {
-    display: flex; justify-content: center; align-items: center;
-    gap: 8px; flex-wrap: wrap; margin-top: 10px;
-  }
-  .legal-links {
-    margin: 20px 0;
-    font-family: var(--mono);
-    font-size: 0.85rem;
-  }
-  .legal-link-item {
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
+  .footer-line { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .legal-links { margin: 20px 0; font-family: var(--mono); font-size: 0.85rem; }
+  .legal-link-item { color: var(--muted); text-decoration: none; transition: color 0.3s; }
   .legal-link-item:hover { color: var(--accent); }
   .white-text { color: #ffffff; font-weight: bold; }
-  .white-link, .green-link {
-    text-decoration: none; font-weight: bold; display: inline-block;
-    position: relative; transition: transform 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
-  }
-  .white-link::after, .green-link::after {
-    content: ''; position: absolute; top: -20px; bottom: -20px; left: -30px; right: -30px;
-  }
+  .white-link, .green-link { text-decoration: none; font-weight: bold; display: inline-block; position: relative; transition: transform 0.3s ease, opacity 0.3s ease, margin 0.3s ease; }
+  .white-link::after, .green-link::after { content: ''; position: absolute; top: -20px; bottom: -20px; left: -30px; right: -30px; }
   .white-link { color: white; }
   .green-link { color: #00f5a0; }
-  
-  /* Footer Animations */
-  .first-heart:hover, .white-link:hover {
-    transform: scale(1.6); margin-left: 22px; margin-right: 22px; opacity: 0.8;
-  }
-  .name-link:hover {
-    transform: scale(1.3); margin-left: 45px; margin-right: 45px; opacity: 0.8;
-  }
+  .first-heart:hover, .white-link:hover { transform: scale(1.6); margin-left: 22px; margin-right: 22px; opacity: 0.8; }
+  .name-link:hover { transform: scale(1.3); margin-left: 45px; margin-right: 45px; opacity: 0.8; }
 
   /* ── MOBILE RESPONSIVENESS ── */
   @media (max-width: 768px) { 
@@ -139,9 +152,12 @@
 <div class="container">
   <h1 class="page-title">Secure <span>Payment</span></h1>
 
-  <!-- ── PAYMENT DETAILS SECTION (QR/UPI, RAZORPAY, PAYPAL) ── -->
- <!-- CURRENT ACTIVE METHOD: QR CODE & UPI -->
-   <!-- CURRENT ACTIVE METHOD: QR CODE & UPI -->
+  <!-- ── 1. PAYMENT DETAILS SECTION (CARD 1) ── -->
+  <div class="payment-box">
+    <h2>// Transfer Details</h2>
+    <p>Please use the method below to send the advance payment and confirm your slot.</p>
+    
+    <!-- CURRENT ACTIVE METHOD: QR CODE & UPI -->
     <div class="payment-method-active" id="upi-section">
       <div class="payment-details">
         <span>Scan QR Code or Pay via UPI:</span>
@@ -152,7 +168,7 @@
         <!-- 1. UPI ID -->
         <span class="upi-id">paytmqr6ex9gc@ptys</span>
         
-        <!-- 2. DIRECT UPI PAYMENT LINK (Beech me) -->
+        <!-- 2. DIRECT UPI PAYMENT LINK -->
         <a href="upi://pay?pa=paytmqr6ex9gc@ptys&pn=SHIVAM%20KUMAR&cu=INR" class="btn-primary" style="display: inline-block; text-decoration: none; padding: 0.8rem 1.5rem; margin: 5px 0 15px 0;">
           Pay Directly via UPI App ↗
         </a>
@@ -163,6 +179,7 @@
       </div>
       <p style="font-size: 0.85rem; color: var(--muted);">After sending the payment, please attach the screenshot below.</p>
     </div>
+
     <!-- ───────────────────────────────────────────────────────── -->
     <!-- FUTURE INTEGRATION: RAZORPAY (Uncomment to use in future) -->
     <!-- ───────────────────────────────────────────────────────── -->
@@ -226,12 +243,12 @@
 
   </div>
 
-  <!-- ── UPLOAD SCREENSHOT / VERIFICATION FORM SECTION ── -->
+  <!-- ── 2. UPLOAD SCREENSHOT / VERIFY PAYMENT SECTION (CARD 2) ── -->
   <div class="proof-form-box">
     <h2>// Verify Payment</h2>
     <p class="proof-sub">Submit your transaction details so I can confirm the payment.</p>
     
-    <!-- WEB3FORMS: Make sure to keep your access key secure -->
+    <!-- WEB3FORMS: Keep your access key secure -->
     <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="proof-form">
       <input type="hidden" name="access_key" value="6a9105a0-c283-4afa-8a6a-b666130ab9c5">
       <input type="hidden" name="subject" value="Payment Screenshot Received!">
@@ -250,7 +267,7 @@
     </form>
   </div>
 
-  <!-- ── DYNAMIC REFUND POLICY SECTION ── -->
+  <!-- ── 3. DYNAMIC REFUND POLICY SECTION (CARD 3) ── -->
   <div class="dynamic-policy-box">
     <div id="fetched-refund-content">
       <p style="text-align: center;">Loading Refund Policy...</p>
@@ -259,7 +276,7 @@
 
 </div>
 
-<!-- ── FOOTER SECTION (Matches index.html exactly) ── -->
+<!-- ── FOOTER SECTION ── -->
 <footer>
   <p class="built-with-line">
     Built with 
@@ -278,7 +295,6 @@
     <a href="payment.html" class="legal-link-item" style="color: var(--accent);">Payment</a>
   </p>
 
-  <!-- Name link modified to redirect to index.html -->
   <p class="footer-line">
     <span class="white-text">© 2026</span>
     <a href="index.html" class="green-link name-link">SHIVAM KUMAR SINGH</a>
@@ -286,15 +302,15 @@
   </p>
 </footer>
 
-<!-- ── JAVASCRIPT: Fetching Refund Policy from legal.html ── -->
+<!-- ── SCRIPTS ── -->
 <script>
+  // 1. Fetching Refund Policy from legal.html
   document.addEventListener("DOMContentLoaded", function() {
     fetch('legal.html')
       .then(response => response.text())
       .then(htmlData => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlData, 'text/html');
-        // Fetch specific #refund section from legal.html
         const refundSection = doc.querySelector('#refund');
         
         if (refundSection) {
@@ -307,6 +323,15 @@
         console.error("Error fetching policy:", error);
         document.getElementById('fetched-refund-content').innerHTML = "<p>Error loading policy. Please visit Legal page directly.</p>";
       });
+  });
+
+  // 2. MOUSE TRACKING GLOW EFFECT SCRIPT
+  document.querySelectorAll('.payment-box, .proof-form-box, .dynamic-policy-box').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top)  / r.height * 100) + '%');
+    });
   });
 </script>
 
